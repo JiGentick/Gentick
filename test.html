@@ -6,54 +6,63 @@
 <html>
 
 <head>
+
     <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-</head>
 
-<body>
-    <script type="text/javascript">
-        // when we get a message from the app, display it on the page
-        ThunkableWebviewerExtension.receiveMessage(function(message) {
-            let a = JSON.stringify(message.type)
-            let textHolder = document.getElementById("text")
-            textHolder.innerHTML = a;
-            let events = message.events
+    <div id="container"></div>
 
-            if (message.type == 'addAllEvents') {
-                calendar.addEventSource(events);
-            }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            Highcharts.chart('container', {
+    <body>
+        <style>
 
-                title: {
-                    text: 'Rainfall vs Time'
-                },
+        </style>
 
-                "subtitle": {
-                    "text": "subtitle"
-                },
-                "exporting": {},
-                "yAxis": {
-                    "title": "Rainfall (mm)"
-                },
-                data: {
-                    googleAPIKey: 'AIzaSyAmt42d0jtIF_3xU9LvsKeFZHUOC32yLcQ',
-                    googleSpreadsheetKey: '1ggafCoHMF5LFfnze2epi0m_ZMt39oT6d9QM-v7lCMD0',
-                    "dataRefreshRate": 30,
-                    "enablePolling": true,
-                    "startRow": "1",
-                    "endRow": 1.7976931348623157e+308,
-                    "startColumn": "A",
-                    "endColumn": "I",
-                    error: console.error
+        <script>
+            // when we get a message from the app, display it on the page
+            ThunkableWebviewerExtension.receiveMessage(function(message) {
+                // console.log(message);
+                let a = JSON.stringify(message.type)
+                let textHolder = document.getElementById("text")
+                textHolder.innerHTML = a;
+                let events = message.events
+
+                if (message.type == 'addAllEvents') {
+                    calendar.addEventSource(events);
                 }
 
             });
-        });
-    </script>
-</body>
+
+            document.addEventListener('DOMContentLoaded', function() {
+                Highcharts.chart('container', {
+
+                    title: {
+                        text: 'Rainfall vs Time'
+                    },
+
+                    "subtitle": {
+                        "text": "subtitle"
+                    },
+                    "exporting": {},
+                    "yAxis": {
+                        "title": "Rainfall (mm)"
+                    },
+                    data: {
+                        googleAPIKey: 'AIzaSyAmt42d0jtIF_3xU9LvsKeFZHUOC32yLcQ',
+                        googleSpreadsheetKey: '1ggafCoHMF5LFfnze2epi0m_ZMt39oT6d9QM-v7lCMD0',
+                        "dataRefreshRate": 30,
+                        "enablePolling": true,
+                        "startRow": "1",
+                        "endRow": 1.7976931348623157e+308,
+                        "startColumn": "A",
+                        "endColumn": "I",
+                        error: console.error
+                    }
+
+                });
+            });
+        </script>
+    </body>
 
 </html>
